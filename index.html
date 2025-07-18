@@ -4,7 +4,6 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Crypto News Blog</title>
-  <meta name="site-verification" content="c630ac1b3532c2b9ef478a79f96272c6" />
   <style>
     body {
       margin: 0;
@@ -116,7 +115,6 @@
       <a onclick="showSection('nft')">🖼️ NFT</a>
     </div>
 
-    <!-- 🔗 Ad Link Box -->
     <div class="ad-box">
       <a href="https://www.profitableratecpm.com/r1tgfdx5u?key=18f9c33bfcfb4f74acefa1d11feabbf4" target="_blank">🔥 Discover Crypto Ad Offers</a>
     </div>
@@ -165,6 +163,8 @@
 
   <footer>
     © 2025 CryptoNews Blog | Built with ❤️ and GitHub Pages
+    <br>
+    <span id="view-count">👁️ Views: loading...</span>
   </footer>
 
   <script>
@@ -174,6 +174,22 @@
       });
       document.getElementById(id).classList.add('active');
     }
+
+    async function updateViewCount() {
+      const namespace = 'cryptonews-blog';
+      const key = 'homepage';
+      try {
+        const res = await fetch(`https://api.counterapi.dev/v1/${namespace}/${key}/hit`, {
+          method: "POST"
+        });
+        const data = await res.json();
+        document.getElementById("view-count").innerText = `👁️ Views: ${data.count}`;
+      } catch (err) {
+        document.getElementById("view-count").innerText = `👁️ Views: unavailable`;
+      }
+    }
+
+    updateViewCount();
   </script>
 </body>
 </html>
