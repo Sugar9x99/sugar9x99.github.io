@@ -175,19 +175,25 @@
       document.getElementById(id).classList.add('active');
     }
 
-    async function updateViewCount() {
-      const namespace = 'cryptonews-blog';
-      const key = 'homepage';
-      try {
-        const res = await fetch(`https://api.counterapi.dev/v1/${namespace}/${key}/hit`, {
-          method: "POST"
-        });
-        const data = await res.json();
+  async function updateViewCount() {
+    const namespace = 'cryptonews-blog';
+    const key = 'homepage';
+    try {
+      const res = await fetch(`https://api.counterapi.dev/v1/${namespace}/${key}/hit`, {
+        method: "POST"
+      });
+      const data = await res.json();
+
+      if (data && typeof data.count === 'number') {
         document.getElementById("view-count").innerText = `👁️ Views: ${data.count}`;
-      } catch (err) {
+      } else {
         document.getElementById("view-count").innerText = `👁️ Views: unavailable`;
       }
+    } catch (err) {
+      document.getElementById("view-count").innerText = `👁️ Views: error`;
     }
+  }
+
 
     updateViewCount();
   </script>
